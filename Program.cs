@@ -10,10 +10,23 @@ namespace MTD_Laba_3
     {
         static void Main(string[] args)
         {
-            Singleton l1 = Singleton.GetInstance();
-            l1.WriteNumber(20);
-            Console.WriteLine(l1.Value);
+            var thread1 = new Thread(FirstThreadEntryPoint);
+            var thread2 = new Thread(SecondThreadEntryPoint);
+
+            thread1.Start();
+            thread2.Start();
+
             Console.ReadKey();
+        }
+        private static void FirstThreadEntryPoint()
+        {
+            Singleton l1 = Singleton.GetInstance();
+            Console.WriteLine(l1.WriteNumber(20));
+        }
+        private static void SecondThreadEntryPoint()
+        {
+            Singleton l2 = Singleton.GetInstance();
+            Console.WriteLine(l2.WriteNumber(24));
         }
     }
 }

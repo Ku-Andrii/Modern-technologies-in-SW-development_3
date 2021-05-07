@@ -23,13 +23,17 @@ namespace MTD_Laba_3
                 }
             return singletonInstance;
         }
-        public void WriteNumber(int a)
+         public string WriteNumber(int a)
         {
-            _value += a.ToString();
-        }
-        public string Value
-        {
-            get => _value;
+            if (_value == " ")
+                lock (syncRoot)
+                {
+                    if (_value == " ")
+                    {
+                        _value += a.ToString();
+                    }
+                }
+            return _value;
         }
     }
 }

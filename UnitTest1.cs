@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MTD_Laba_3;
 
@@ -7,12 +8,15 @@ namespace UnitTestMTD_Laba_3
     [TestClass]
     public class UnitTest1
     {
+        Singleton one;
+        Singleton two;
+        
         [TestMethod]
         public void TestForWriteNumber()
         {
             var l1 = Singleton.GetInstance();
-            var actual = l1.WriteNumber(25);
-            var expected = " 27";
+            var actual = l1.WriteNumber(27);
+            var expected = " 20";
             Assert.AreEqual(expected, actual);
         }
         [TestMethod]
@@ -27,11 +31,21 @@ namespace UnitTestMTD_Laba_3
         [TestMethod]
         public void TestForMultithreading()
         {
-            var l1 = Singleton.GetInstance();
-            var l2 = Singleton.GetInstance();
-            var actual = l1.WriteNumber(27);
-            var expected = l2.WriteNumber(18);
+            var thread1 = new Thread(FirstThreadEntryPoint);
+            var thread2 = new Thread(SecondThreadEntryPoint);
+            thread1.Start();
+            thread2.Start();
+            var actual = one.WriteNumber(20);
+            var expected = two.WriteNumber(24);
             Assert.AreEqual(expected, actual);
+        }
+        public void FirstThreadEntryPoint()
+        {
+            one = Singleton.GetInstance();
+        }
+        public void SecondThreadEntryPoint()
+        {
+            two = Singleton.GetInstance();
         }
     }
 }

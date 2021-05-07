@@ -37,7 +37,7 @@ namespace UnitTestMTD_Laba_3
             thread2.Start();
             var actual = one.WriteNumber(20);
             var expected = two.WriteNumber(24);
-            Assert.AreEqual(expected, actual);
+            Assert.AreEqual(one, two);
         }
         public void FirstThreadEntryPoint()
         {

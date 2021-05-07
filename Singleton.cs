@@ -4,7 +4,7 @@ namespace MTD_Laba_3
 {
     public sealed class Singleton
     {
-        private static volatile Singleton singletonInstance = null;
+        private static Singleton singletonInstance = null;
         private static readonly Object syncRoot = new Object();
         private string _value;
         private Singleton()
@@ -28,10 +28,7 @@ namespace MTD_Laba_3
             if (_value == " ")
                 lock (syncRoot)
                 {
-                    if (_value == " ")
-                    {
-                        _value += a.ToString();
-                    }
+                    _value += a.ToString();
                 }
             return _value;
         }
